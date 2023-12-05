@@ -1,3 +1,7 @@
+import operator
+from functools import reduce
+
+
 def part_one(filename: str) -> int:
 
     constraints = {"red": 12,
@@ -26,7 +30,28 @@ def part_one(filename: str) -> int:
     return sum
     
 def part_two(filename: str) -> int:
-    return 1
+    
+    with open(filename, encoding="utf8") as f:
+        lines = [line.strip() for line in f.readlines()]
+
+    sum = 0
+    for line in lines:
+        
+        game_id, game_sets = line.split(": ")
+        game_id = game_id.replace("Game ", "")
+        game_sets= game_sets.replace("; ",",")
+        game_sets= game_sets.replace(", ",",").split(",")
+        
+        base = {"red":0, "blue":0, "green":0}
+        for sets in game_sets:
+            number, color = sets.split(" ")
+            if int(number) > base[color]:
+                base[color] = int(number)
+        
+        values = list(base.values())
+        sum+= reduce(operator.mul,values,1)
+   
+    return sum
 
 if __name__ == "__main__":
     input_path = "./AoC/day_2/input.txt"
