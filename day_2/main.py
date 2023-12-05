@@ -49,7 +49,7 @@ def part_two(filename: str) -> int:
                 base[color] = int(number)
         
         values = list(base.values())
-        sum+= reduce(operator.mul,values,1)
+        sum+= reduce(operator.mul,values)
    
     return sum
 
