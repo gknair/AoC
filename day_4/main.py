@@ -15,10 +15,13 @@ def part_two(filename: str) -> int:
     with open(filename, encoding="utf8") as f:
         lines = [line.strip() for line in f.readlines()]
     
+    line = [everyline(line, part_two=True) for line in lines]
+
+    print(line)
     sum_nos=0
     return sum_nos
 
-def everyline(line:str) -> int:
+def everyline(line:str, part_two=False) -> int:
     match=0
     sum_nos=0
     
@@ -33,13 +36,14 @@ def everyline(line:str) -> int:
         if number in winning_numbers:
             match+=1
 
-    if match>0:
+    if match>0 and not part_two:
         sum_nos = 2**(match-1)
-    
+    else:
+        sum_nos=match
     return sum_nos 
 
 if __name__ == "__main__":
-    input_path = "./AoC/day_4/input.txt"
+    input_path = "./AoC/day_4/example.txt"
     print("---Part One---")
     print(part_one(input_path))
     print("---Part Two---")
