@@ -13,7 +13,7 @@ def part_one(filename: str) -> int:
     for line in lines:
         x=0
         for ch in line:
-            if ch in "123456789.":
+            if ch in "0123456789.":
                 pass
             else:
                 special_char.append((x,y))    
@@ -23,7 +23,7 @@ def part_one(filename: str) -> int:
     parts = []
     y=0    
     for line in lines:
-       for match in re.finditer(r"\b([1-9]+)", line):
+       for match in re.finditer(r"\b([0-9]+)", line):
            
            start=match.start()
            end=match.end()
@@ -45,7 +45,7 @@ def part_one(filename: str) -> int:
            if part_add:
             parts.append(int(match.group())) 
        y+=1       
-
+    print(parts)
     sum_nos = sum(parts) 
     return sum_nos
     
@@ -62,7 +62,7 @@ def part_two(filename: str) -> int:
     return sum
 
 if __name__ == "__main__":
-    input_path = "/Users/uraval/Documents/GitHub/AoC/day_3/example.txt"
+    input_path = "./AoC/day_3/input.txt"
     print("---Part One---")
     print(part_one(input_path))
     print("---Part Two---")
