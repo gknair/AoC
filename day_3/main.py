@@ -1,3 +1,4 @@
+import re
 def part_one(filename: str) -> int:
 
 
@@ -18,9 +19,16 @@ def part_one(filename: str) -> int:
                 special_char.append((x,y))    
             y+=1
         x+=1
+
+    parts = []    
+    for line in lines:
+       for match in re.finditer(r"\b([1-9]+)", line):
         
-        sum+= 0
-    print(special_char)
+           print(match.group())
+           print(match.span())
+           print(match.end())
+
+
     return sum
     
 def part_two(filename: str) -> int:
