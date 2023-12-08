@@ -7,29 +7,47 @@ def part_one(filename: str) -> int:
 
     MaxX = len(lines[0])
     MaxY = len(lines)
-    sum = 0
-    x=0
+    sum_nos = 0
+    y=0
     special_char =[]
     for line in lines:
-        y=0
+        x=0
         for ch in line:
             if ch in "123456789.":
                 pass
             else:
                 special_char.append((x,y))    
-            y+=1
-        x+=1
+            x+=1
+        y+=1
 
-    parts = []    
+    parts = []
+    y=0    
     for line in lines:
        for match in re.finditer(r"\b([1-9]+)", line):
-        
-           print(match.group())
-           print(match.span())
-           print(match.end())
+           
+           start=match.start()
+           end=match.end()
+           part_add= False
+           while start<end:
+               neighbours = [(start-1,y), 
+                             (start,y-1),  
+                             (start+1,y), 
+                             (start, y+1),
+                             (start+1,y+1),
+                             (start-1,y-1),
+                             (start+1,y-1),
+                             (start-1,y+1)
+               ]
+               for neigbor in neighbours:
+                   if neigbor in special_char:
+                    part_add=True
+               start+=1
+           if part_add:
+            parts.append(int(match.group())) 
+       y+=1       
 
-
-    return sum
+    sum_nos = sum(parts) 
+    return sum_nos
     
 def part_two(filename: str) -> int:
     
